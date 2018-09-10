@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.box {
+  width: 800px;
+  height: 450px;
+  margin: 50px auto;
+  position: relative;
+  overflow: hidden;
+}
+.box .inner {
+  position: absolute;
+  width: 30000px;
+  height: 450px;
+}
+.box .inner img {
+  float: left;
+}
+.box span {
+  font-size: 50px;
+  font-weight: 900;
+  position: absolute;
+  color: #fff;
+  cursor: pointer;
+  top: 43%;
+}
+.box span:nth-of-type(2) {
+  right: 0;
+}
