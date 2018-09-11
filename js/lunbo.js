@@ -11,6 +11,7 @@
                 stop = null,
                 add = null,
                 show = null,
+                click = null,
                 elems = {
                     imgWidth: this.children('div').children('img').width(), //图片宽度
                     num: this.children('div').children('img').length //记录图片个数
@@ -64,6 +65,7 @@
                     }, function() {
                         elems._index++;
                     });
+                    show();
                 } else {
                     if (elems._index <= 1) {
                         elems.innerDiv.css('left', 0);
@@ -74,31 +76,54 @@
                     }, function() {
                         elems._index--;
                     });
+                    show();
                 };
-                // for (var i = 0; i < elems.sum; i++) {
+
+
             };
             //增加底部按钮
             add = function() {
-                // for (var i = 0; i < elems.sum; i++) {
-
+                // 动态生成底部按钮
+                var left = elems.imgWidth * 0.03 * elems.num;
                 do {
                     var btms = $('<em></em>');
                     $('.box').append(btms);
                 } while (_that.children('em').length < elems.num);
-                // for (var i = 1; i <= _that.children('em').length; i++) {
-                //     _that.children('em:nth-of-type(i)').css({
-                //         'left': 50 * i + 'px'
-                //     })
-                //     console.log(_that.children('em:nth-of-type(i)'))
-                // }
-
-
-            };
-            //
-            show = function() {
-
+                for (var i = 0; i < _that.children('em').length; i++) {
+                    $(_that.children('em')[i]).css({
+                        'left': 20 * i + left + 'px'
+                    });
                 }
-                //点击向前
+                $(_that.children('em')[elems.num - 1]).addClass('show'); //第一个按钮高亮
+            };
+            //底部按钮点击
+            click = function() {
+                _that.children('em').each(function() {
+                    $(this).on('click', function() {
+                        var _thisindex = $(this).index();
+                        var mindex = _thisindex - elems._index;
+                        if (mindex == 0) {
+                            return;
+                        } else if (mindex > 0) {
+                            elems.innerDiv.animate({
+                                left: -(mindex - 1) * elems.imgWidth
+                            });
+                            show();
+
+                        } else if (mindex < 0) {
+                            elems.innerDiv.animate({
+                                left: mindex - 1 * elems.imgWidth
+                            });
+                            show();
+                        }
+                    });
+                });
+            };
+            //底部按钮高亮
+            show = function() {
+                _that.children('em').eq(elems._index - 3).addClass('show').siblings().removeClass('show');
+            };
+            //点击向前
             next = function() {
                 options.dir = 1;
                 stop();
@@ -117,6 +142,7 @@
             };
             main = function() {
                 init();
+                click();
                 timeout = setInterval(function() {
                     start(); //默认向右轮播参数为0；
                 }, options.delay + options.speed);

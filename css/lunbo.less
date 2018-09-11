@@ -8,7 +8,7 @@
     height: 450px;
     margin: 50px auto;
     position: relative;
-    overflow: hidden;
+    // overflow: hidden;
     .inner{
         position: absolute;
         width: 30000px;
@@ -31,25 +31,17 @@
    
     em{
         display: inline-block;
-        width: 20px;
-        height: 20px;
+        width: 10px;
+        height: 10px;
         border-radius: 50%;
-        background-color: rgb(163, 157, 157);
+        background-color: rgba(124, 117, 117, 0.801);
         z-index: 100;
         position: absolute;
         bottom: 30px;
         // left: 200px;
-        &:nth-of-type(1){
-            left: 40%;
-        }
-        &:nth-of-type(2){
-            left: 45%;
-        }
-        &:nth-of-type(3){
-            left: 50%;
-        }
+        cursor: pointer;
     }
     .show{
-        background-color: red;
+        background-color: rgba(14, 13, 13, 0.726);
     }
 }

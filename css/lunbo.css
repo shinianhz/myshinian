@@ -8,7 +8,6 @@
   height: 450px;
   margin: 50px auto;
   position: relative;
-  overflow: hidden;
 }
 .box .inner {
   position: absolute;
@@ -31,23 +30,15 @@
 }
 .box em {
   display: inline-block;
-  width: 20px;
-  height: 20px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background-color: #a39d9d;
+  background-color: rgba(124, 117, 117, 0.801);
   z-index: 100;
   position: absolute;
   bottom: 30px;
-}
-.box em:nth-of-type(1) {
-  left: 40%;
-}
-.box em:nth-of-type(2) {
-  left: 45%;
-}
-.box em:nth-of-type(3) {
-  left: 50%;
+  cursor: pointer;
 }
 .box .show {
-  background-color: red;
+  background-color: rgba(14, 13, 13, 0.726);
 }
