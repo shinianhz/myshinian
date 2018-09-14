@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>mulball</title>
+    <style>
+        .box {
+            width: 1000px;
+            height: 600px;
+            margin: 0 auto;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="box">
+        <canvas id="myCanvas" width="1000" height="600"></canvas>
+    </div>
+    <script>
+        var canvas = document.getElementById('myCanvas'),
+            context = canvas.getContext('2d');
+        //动态生成
+
+
+        var arr = [],
+            arrcl = ['rgb(18, 216, 216)', 'rgb(233, 97, 6)', 'rgb(83, 11, 251)', 'rgb(11, 175, 251)', 'rgb(231, 27, 27)']
+        for (var i = 0; i < 1000; i++) {
+            var ranR = Math.ceil(Math.random() * 20 + 8), //随机产生圆半径
+                ranX = Math.ceil(Math.random() * 900 + 10), //随机产生圆心X坐标
+                ranY = Math.ceil(Math.random() * 560 + 20), //随机产生圆心Y坐标
+                ranS = Math.random() * 0.01; //随机产生移动的速度
+
+            arr[i] = {
+                'x': ranX,
+                'y': ranY,
+                'w': 1.2 + i * ranS,
+                'h': 2 + i * ranS,
+                'color': arrcl[i],
+                'r': ranR
+
+            }
+        }
+        //在对象原型中封装一个circle方法
+        Object.prototype.circle = function() {
+            context.beginPath();
+            context.fillStyle = this.color;
+            var c = Math.ceil(Math.random() * 5); //随机产生颜色
+            if (this.x + this.w > canvas.width - 10 || this.x + this.w < 10) {
+                this.w = -this.w;
+                this.color = arrcl[c]; //碰撞后改变颜色
+            }
+            if (this.y + this.h > canvas.height - 10 || this.y + this.h < 10) {
+                this.h = -this.h
+                this.color = arrcl[c]; //碰撞后改变颜色
+            }
+            context.arc(this.x += this.w, this.y += this.h, this.r, 0, Math.PI * 2);
+            context.fill();
+            context.closePath();
+        };
+        setInterval(function() {
+            context.clearRect(0, 0, 1000, 600);
+            for (let j = 0; j < 1000; j++) {
+                arr[j].circle() //在数组中调用封装在Object原型中的circle方法
+            }
+        }, 30);
+    </script>
+</body>
+
+</html>
